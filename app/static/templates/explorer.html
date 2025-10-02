@@ -1,0 +1,107 @@
+{% extends "base.html" %} 
+
+ 
+
+{% block header_left %} 
+
+<a href="/" class="back-button"> 
+
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
+
+        <line x1="19" y1="12" x2="5" y2="12"></line> 
+
+        <polyline points="12 19 5 12 12 5"></polyline> 
+
+    </svg> 
+
+</a> 
+
+<h2 class="page-title">Data Explorer</h2> 
+
+{% endblock %} 
+
+ 
+
+{% block content %} 
+
+<!-- Tab Navigation --> 
+
+<div class="tabs"> 
+
+    <button class="tab {% if current_section == 'market-trends' or not current_section %}active{% endif %}"  
+
+            onclick="window.location.href='{{ url_for('main.explorer', section='market-trends') }}'"> 
+
+        All 
+
+    </button> 
+
+    {% for tab in tabs %} 
+
+    <button class="tab {% if current_section == tab.id %}active{% endif %}" 
+
+            onclick="window.location.href='{{ url_for('main.explorer', section=tab.id) }}'"> 
+
+        {{ tab.name }} 
+
+    </button> 
+
+    {% endfor %} 
+
+</div> 
+
+ 
+
+<div class="search-container"> 
+
+    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
+
+        <circle cx="11" cy="11" r="8"></circle> 
+
+        <path d="m21 21-4.35-4.35"></path> 
+
+    </svg> 
+
+    <input type="text" class="search-input" placeholder="Search for anything"> 
+
+</div> 
+
+ 
+
+<!-- Section Title --> 
+
+<h2 class="section-title">{{ section.title }}</h2> 
+
+ 
+
+<!-- Cards Grid --> 
+
+<div class="cards-grid explorer-grid"> 
+
+    {% for item in section.items %} 
+
+    <div class="card explorer-card card-{{ item.color }}"> 
+
+        <div class="card-overlay"></div> 
+
+        <div class="card-content"> 
+
+            <h3 class="card-title">{{ item.title }}</h3> 
+
+            <p class="card-description">{{ item.description }}</p> 
+
+        </div> 
+
+        <div class="card-progress"> 
+
+            <div class="progress-bar" style="width: {{ loop.index * 15 }}%"></div> 
+
+        </div> 
+
+    </div> 
+
+    {% endfor %} 
+
+</div> 
+
+{% endblock %} 

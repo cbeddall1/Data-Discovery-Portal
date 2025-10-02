@@ -1,0 +1,139 @@
+{% extends "base.html" %} 
+
+ 
+
+{% block header_left %} 
+
+<h2 class="page-title">Data Explorer</h2> 
+
+{% endblock %} 
+
+ 
+
+{% block content %} 
+
+<!-- Tab Navigation --> 
+
+<div class="tabs"> 
+
+    <button class="tab active">All</button> 
+
+    <button class="tab">AI Tools</button>  
+
+    <button class="tab">Insights & Reporting</button> 
+
+</div> 
+
+ 
+
+<div class="search-container"> 
+
+    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
+
+        <circle cx="11" cy="11" r="8"></circle> 
+
+        <path d="m21 21-4.35-4.35"></path> 
+
+    </svg> 
+
+    <input type="text" class="search-input" placeholder="Search for anything"> 
+
+</div> 
+
+ 
+
+<!-- Hero Banner --> 
+
+<div class="hero-banner"> 
+
+    <h1>Explore Key Insights</h1> 
+
+    <p>Unlock powerful analytics and actionable data to drive smarter decisions and streamline operations.</p> 
+
+</div> 
+
+ 
+
+<!-- Cards Grid --> 
+
+<div class="cards-grid home-grid"> 
+
+    {% for card in cards %} 
+
+    <div class="card home-card" onclick="window.location.href='{{ url_for('main.explorer', section=card.route) }}'"> 
+
+        <div class="card-header"> 
+
+            <span class="badge badge-{{ card.badge.lower() }}">{{ card.badge }}</span> 
+
+            <button class="card-menu"> 
+
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
+
+                    <circle cx="12" cy="12" r="1"></circle> 
+
+                    <circle cx="12" cy="5" r="1"></circle> 
+
+                    <circle cx="12" cy="19" r="1"></circle> 
+
+                </svg> 
+
+            </button> 
+
+        </div> 
+
+        <h3 class="card-title">{{ card.title }}</h3> 
+
+        <p class="card-description">{{ card.description }}</p> 
+
+        <div class="card-footer"> 
+
+            <div class="avatars"> 
+
+                <img src="{{ url_for('static', filename='images/avatar1.jpg') }}" alt="User" class="avatar"> 
+
+                <img src="{{ url_for('static', filename='images/avatar2.jpg') }}" alt="User" class="avatar"> 
+
+                <img src="{{ url_for('static', filename='images/avatar3.jpg') }}" alt="User" class="avatar"> 
+
+            </div> 
+
+            <div class="card-stats"> 
+
+                <span class="stat"> 
+
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
+
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path> 
+
+                    </svg> 
+
+                    {{ card.insights }} Insights 
+
+                </span> 
+
+                <span class="stat"> 
+
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
+
+                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path> 
+
+                        <polyline points="13 2 13 9 20 9"></polyline> 
+
+                    </svg> 
+
+                    {{ card.files }} files 
+
+                </span> 
+
+            </div> 
+
+        </div> 
+
+    </div> 
+
+    {% endfor %} 
+
+</div> 
+
+{% endblock %} 

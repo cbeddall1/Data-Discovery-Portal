@@ -1,0 +1,47 @@
+{% extends "base.html" %} 
+
+ 
+
+{% block header_left %} 
+
+<a href="/" class="back-button"> 
+
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
+
+        <line x1="19" y1="12" x2="5" y2="12"></line> 
+
+        <polyline points="12 19 5 12 12 5"></polyline> 
+
+    </svg> 
+
+</a> 
+
+<h2 class="page-title">Page Not Found</h2> 
+
+{% endblock %} 
+
+ 
+
+{% block content %} 
+
+<div style="text-align: center; padding: 4rem 2rem;"> 
+
+    <div style="font-size: 6rem; font-weight: 700; color: var(--accent-color); margin-bottom: 1rem;">404</div> 
+
+    <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--text-dark);">Section Not Found</h2> 
+
+    <p style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 2rem;"> 
+
+        The section you're looking for doesn't exist or has been moved. 
+
+    </p> 
+
+    <a href="/" style="display: inline-block; padding: 1rem 2rem; background: var(--accent-color); color: white; text-decoration: none; border-radius: 12px; font-weight: 600; transition: all 0.3s ease;"> 
+
+        Return to Home 
+
+    </a> 
+
+</div> 
+
+{% endblock %} 
