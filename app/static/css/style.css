@@ -3,12 +3,12 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-    --primary-color: #1F7A4C; /* deep green */
-    --accent-color: #78C06E;  /* lighter green */
-    --brand-dark: #0E5B3D;
+    --primary-color: #cc2b4a;
+    --accent-color: hsl(279, 88%, 23%); 
+    --brand-dark: #32005b;
     --brand-light: #BFEFD0;
-    --text-dark: #0B2F1F;
-    --text-light: #5B6B61;
+    --text-dark: #191c1a;
+    --text-light: #4d514e;
     --bg-light: #F6FAF6;
     --bg-white: #FFFFFF;
     --border-color: #E6F2EA;
