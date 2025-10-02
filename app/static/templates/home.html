@@ -60,7 +60,7 @@
 
     {% for card in cards %} 
 
-    <div class="card home-card" onclick="window.location.href='{{ url_for('main.explorer', section=card.route) }}'"> 
+    <div class="card home-card" data-href="{{ url_for('main.explorer', section=card.route) }}"> 
 
         <div class="card-header"> 
 
@@ -88,17 +88,9 @@
 
         <div class="card-footer"> 
 
-            <div class="avatars"> 
+            <!-- Avatars removed per request -->
 
-                <img src="{{ url_for('static', filename='images/avatar1.jpg') }}" alt="User" class="avatar"> 
-
-                <img src="{{ url_for('static', filename='images/avatar2.jpg') }}" alt="User" class="avatar"> 
-
-                <img src="{{ url_for('static', filename='images/avatar3.jpg') }}" alt="User" class="avatar"> 
-
-            </div> 
-
-            <div class="card-stats"> 
+            <div class="card-stats" style="margin-left:auto;"> 
 
                 <span class="stat"> 
 

@@ -118,45 +118,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
  
 
-    // Add loading state to copilot button 
-
-    const copilotBtn = document.querySelector('.copilot-btn'); 
-
-    if (copilotBtn) { 
-
-        copilotBtn.addEventListener('click', function() { 
-
-            this.style.opacity = '0.7'; 
-
-            setTimeout(() => { 
-
-                this.style.opacity = '1'; 
-
-            }, 300); 
-
-        }); 
-
-    } 
+    // Copilot button removed; no-op
 
  
 
-    // Card click analytics (placeholder) 
-
-    const homeCards = document.querySelectorAll('.home-card'); 
-
-    homeCards.forEach(card => { 
-
-        card.addEventListener('click', function() { 
-
-            const title = this.querySelector('.card-title')?.textContent; 
-
-            console.log(`Card clicked: ${title}`); 
-
-            // Add analytics tracking here 
-
-        }); 
-
-    }); 
+    // Card click navigation + analytics
+    const homeCards = document.querySelectorAll('.home-card');
+    homeCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            const title = this.querySelector('.card-title')?.textContent;
+            const href = this.getAttribute('data-href');
+            console.log(`Card clicked: ${title}`);
+            // Add analytics tracking here
+            if (href) window.location.href = href;
+        });
+    });
 
 }); 
 
@@ -197,3 +173,9 @@ const debouncedSearch = debounce((searchTerm) => {
     // Implement search logic here 
 
 }, 300); 
+
+// Helper to navigate from templates without nested quote issues
+function gotoSection(url) {
+    if (!url) return;
+    window.location.href = url;
+}
