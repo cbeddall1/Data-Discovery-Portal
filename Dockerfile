@@ -1,3 +1,5 @@
+# Use official Python runtime as base image 
+
 FROM python:3.11-slim 
 
  
@@ -66,6 +68,6 @@ EXPOSE 5000
 
  
 
-# Run application with gunicorn 
+# Use shell form to allow environment variable expansion 
 
-CMD gunicorn --bind 0.0.0.0:$PORT --workers 4 --threads 2 --timeout 60 run:app 
+CMD gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 4 --threads 2 --timeout 60 run:app 
