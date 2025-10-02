@@ -164,17 +164,17 @@ function debounce(func, wait) {
 
  
 
-// Example: Debounced search 
+
 
 const debouncedSearch = debounce((searchTerm) => { 
 
     console.log('Searching for:', searchTerm); 
 
-    // Implement search logic here 
+
 
 }, 300); 
 
-// Helper to navigate from templates without nested quote issues
+
 function gotoSection(url) {
     if (!url) return;
     window.location.href = url;

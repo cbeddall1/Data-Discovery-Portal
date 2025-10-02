@@ -5,7 +5,7 @@ main = Blueprint('main', __name__)
 HOME_CARDS = [
     {
         'id': 'Taylor-AI',
-        # primary badge as string (templates expect a string so .lower() works)
+        
         'badge': 'Popular',
         'title': 'TaylorAI',
         'description': 'Got questions? Get instant answers - Ask AI to analyse your data and uncover insights',
