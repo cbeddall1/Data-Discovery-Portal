@@ -1,107 +1,108 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
- 
+{% block content %}
+<div class="tabs">
+    <button class="tab {% if current_section == 'exploration-analytics' %}active{% endif %}" 
+            onclick="location.href='{{ url_for('main.explorer', section='exploration-analytics') }}'">
+        Exploration & Analytics
+    </button>
+    {% for tab in tabs %}
+    {% if tab.id != 'exploration-analytics' %}
+    <button class="tab {% if current_section == tab.id %}active{% endif %}"
+            onclick="location.href='{{ url_for('main.explorer', section=tab.id) }}'">
+        {{ tab.name }}
+    </button>
+    {% endif %}
+    {% endfor %}
+</div>
 
-{% block header_left %} 
+<div class="search-container">
+    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+    </svg>
+    <input type="text" class="search-input" placeholder="Search for anything">
+</div>
 
-<a href="/" class="back-button"> 
+<h2 class="section-title">{{ section.title }}</h2>
 
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
+<div class="cards-grid explorer-grid">
+    {% for item in section.items %}
+    <div class="card explorer-card card-{{ item.color }}" 
+         {% if item.report_id %}
+         onclick="location.href='{{ url_for('main.report', report_id=item.report_id) }}'"
+         {% endif %}>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+            <h3 class="card-title">{{ item.title }}</h3>
+            <p class="card-description">{{ item.description }}</p>
+        </div>
+        <div class="card-progress">
+            <div class="progress-bar" style="width: {{ (loop.index * 20) }}%"></div>
+        </div>
+        {% if item.report_id %}
+        <div class="card-action-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
 
-        <line x1="19" y1="12" x2="5" y2="12"></line> 
+<style>
+.explorer-card {
+    position: relative;
+    cursor: pointer;
+}
 
-        <polyline points="12 19 5 12 12 5"></polyline> 
+.card-action-badge {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
 
-    </svg> 
+.explorer-card:hover .card-action-badge {
+    opacity: 1;
+    transform: translateX(0);
+}
+</style>
 
-</a> 
-
-<h2 class="page-title">Data Explorer</h2> 
-
-{% endblock %} 
-
- 
-
-{% block content %} 
-
-<!-- Tab Navigation --> 
-
-<div class="tabs"> 
-
-    <button class="tab {% if current_section == 'market-trends' or not current_section %}active{% endif %}"  
-
-            onclick="window.location.href='{{ url_for('main.explorer', section='market-trends') }}'"> 
-
-        All 
-
-    </button> 
-
-    {% for tab in tabs %} 
-
-    <button class="tab {% if current_section == tab.id %}active{% endif %}" 
-
-            onclick="window.location.href='{{ url_for('main.explorer', section=tab.id) }}'"> 
-
-        {{ tab.name }} 
-
-    </button> 
-
-    {% endfor %} 
-
-</div> 
-
- 
-
-<div class="search-container"> 
-
-    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
-
-        <circle cx="11" cy="11" r="8"></circle> 
-
-        <path d="m21 21-4.35-4.35"></path> 
-
-    </svg> 
-
-    <input type="text" class="search-input" placeholder="Search for anything"> 
-
-</div> 
-
- 
-
-<!-- Section Title --> 
-
-<h2 class="section-title">{{ section.title }}</h2> 
-
- 
-
-<!-- Cards Grid --> 
-
-<div class="cards-grid explorer-grid"> 
-
-    {% for item in section.items %} 
-
-    <div class="card explorer-card card-{{ item.color }}"> 
-
-        <div class="card-overlay"></div> 
-
-        <div class="card-content"> 
-
-            <h3 class="card-title">{{ item.title }}</h3> 
-
-            <p class="card-description">{{ item.description }}</p> 
-
-        </div> 
-
-        <div class="card-progress"> 
-
-            <div class="progress-bar" style="width: {{ loop.index * 15 }}%"></div> 
-
-        </div> 
-
-    </div> 
-
-    {% endfor %} 
-
-</div> 
-
-{% endblock %} 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            var searchTerm = e.target.value.toLowerCase();
+            var cards = document.querySelectorAll('.explorer-card');
+            
+            cards.forEach(function(card) {
+                var title = card.querySelector('.card-title');
+                var description = card.querySelector('.card-description');
+                var titleText = title ? title.textContent.toLowerCase() : '';
+                var descText = description ? description.textContent.toLowerCase() : '';
+                
+                if (titleText.includes(searchTerm) || descText.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+});
+</script>
+{% endblock %}
